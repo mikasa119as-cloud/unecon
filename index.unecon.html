@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNECON Studio | Enterprise Level Ecosystem</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 antialiased">
+
+    <!-- REAL TOAST NOTIFICATION -->
+    <div id="toast-notification" class="fixed bottom-5 left-5 z-50 bg-black text-white text-xs font-bold uppercase tracking-wider px-5 py-3 shadow-2xl border border-zinc-800 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        System Notification
+    </div>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-black text-white text-[10px] font-bold tracking-widest uppercase py-2 px-4 text-center border-b border-zinc-800">
+        ⚡ ECOSYSTEM V5: ENTERPRISE SEARCH, DYNAMIC FILTER, MULTI-VOUCHER & ADVANCED ANTHROPOMETRIC FIT ⚡
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200 px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter text-black">UNECON<span class="text-amber-600">.</span></div>
+        <div class="hidden md:flex space-x-8 font-semibold text-xs uppercase tracking-widest">
+            <a href="#home" class="hover:text-amber-600 transition">Home</a>
+            <a href="#shop" class="hover:text-amber-600 transition">Katalog</a>
+            <a href="#mixmatch" class="hover:text-amber-600 transition">Fitting Studio</a>
+            <a href="#about" class="hover:text-amber-600 transition">Story</a>
+            <a href="#admin-dashboard" class="text-red-600 hover:text-red-800 transition font-bold border-l border-zinc-300 pl-4">📊 Control Panel</a>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleSizeModal(true)" class="text-[11px] font-bold uppercase border border-zinc-300 px-3 py-2 hover:bg-black hover:text-white transition hidden sm:block">
+                📐 Size Guide Engine
+            </button>
+            <button onclick="toggleCartDrawer(true)" class="relative p-2.5 bg-zinc-900 text-white hover:bg-amber-600 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1,0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0,1-1.12-1.243l1.264-12A1.125 1.125 0 0,1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Zm7.5 0a.375.375 0 1,1-.75 0 .375.375 0 0,1 .75 0Z" />
+                </svg>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-amber-500 text-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home" class="relative bg-zinc-950 text-white min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-25 bg-[url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=80')]"></div>
+        <div class="relative z-10 text-center px-6 max-w-4xl">
+            <span class="bg-amber-600 text-white text-[10px] uppercase font-bold tracking-widest px-4 py-1.5">Bandung Premium Base</span>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mt-4 mb-4">UNECON STUDIO</h1>
+            <p class="text-xs md:text-sm text-zinc-400 mb-8 max-w-xl mx-auto font-light">Eksplorasi ekosistem retail terintegrasi penuh dengan modul Smart Filtering, Multi-Voucher Loyalty, dan Real-Time Accounting Ledger.</p>
+            <div class="flex justify-center gap-4">
+                <a href="#shop" class="bg-white text-zinc-950 font-bold px-8 py-3.5 hover:bg-amber-600 hover:text-white transition-all text-xs uppercase tracking-widest">Katalog Belanja</a>
+                <a href="#admin-dashboard" class="bg-red-600 text-white font-bold px-8 py-3.5 hover:bg-red-700 transition-all text-xs uppercase tracking-widest">Dashboard Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FITTING STUDIO (VIRTUAL LOOKBOOK) -->
+    <section id="mixmatch" class="py-20 bg-zinc-950 text-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Interactive Engine</span>
+                <h2 class="text-3xl font-black mt-1">Virtual Look-Studio</h2>
+            </div>
+            <div class="grid lg:grid-cols-12 gap-8 max-w-4xl mx-auto items-center">
+                <!-- Atasan -->
+                <div class="lg:col-span-4 space-y-3" id="studio-tops-container"></div>
+                <!-- Preview Canvas Screen -->
+                <div class="lg:col-span-4 bg-zinc-900 border border-zinc-800 p-6 flex flex-col items-center justify-center relative min-h-[380px]">
+                    <img id="studio-top-img" src="" class="h-36 object-cover mb-2 fallback-img">
+                    <img id="studio-bottom-img" src="" class="h-36 object-cover fallback-img">
+                    <button onclick="addComboToCart()" class="mt-4 bg-white text-black text-[10px] tracking-widest font-bold py-2.5 w-full hover:bg-amber-600 hover:text-white transition uppercase"> Ambil Set Kombinasi </button>
+                </div>
+                <!-- Bawahan -->
+                <div class="lg:col-span-4 space-y-3" id="studio-bottoms-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOP CATALOG WITH SEARCH & FILTER -->
+    <section id="shop" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b border-zinc-200 pb-6">
+            <div>
+                <h2 class="text-2xl font-black uppercase tracking-tight">Katalog Produk Aktif</h2>
+                <p class="text-xs text-zinc-500 mt-1">Sistem pencarian dan filter inventory real-time terintegrasi.</p>
+            </div>
+            <!-- Search & Filter Bar -->
+            <div class="flex flex-wrap items-center gap-2">
+                <input type="text" id="catalog-search" oninput="filterCatalogState()" placeholder="Cari artikel..." class="p-2.5 border border-zinc-300 bg-white text-xs font-medium focus:outline-none focus:border-black w-48">
+                <select id="catalog-category-filter" onchange="filterCatalogState()" class="p-2.5 border border-zinc-300 bg-white text-xs font-semibold focus:outline-none">
+                    <option value="ALL">Semua Kategori</option>
+                    <option value="Baju">Atasan / Baju</option>
+                    <option value="Celana">Bawahan / Celana</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="product-container">
+            <!-- Diisi otomatis oleh JavaScript secara adaptif -->
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="about" class="py-16 bg-zinc-100 border-t border-zinc-200 px-6 text-center max-w-7xl mx-auto">
+        <p class="text-xs uppercase tracking-widest text-amber-600 font-bold">The Brain Behind UNECON</p>
+        <h3 class="text-2xl font-black mt-2 mb-4">Dikembangkan Penuh Oleh Anggi Sholeh</h3>
+        <p class="text-zinc-600 text-sm max-w-2xl mx-auto leading-relaxed">Sistem infrastruktur web retail ini mengintegrasikan seluruh manipulasi data inventori produk, rekap grafik keuangan, kalkulasi voucher promo, hingga otomatisasi pembentukan nota tagihan fisik WhatsApp.</p>
+    </section>
+
+    <!-- CONTROL PANEL (DASHBOARD ADMIN) -->
+    <section id="admin-dashboard" class="py-20 bg-white border-t border-zinc-200 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="border-b border-zinc-200 pb-6 mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <span class="text-red-600 font-bold text-xs uppercase tracking-widest">Authorized Access Control</span>
+                    <h2 class="text-3xl font-black tracking-tight mt-1 text-zinc-950">UNECON Command Dashboard</h2>
+                </div>
+                <button onclick="resetDashboardLedger()" class="bg-red-100 border border-red-300 text-red-700 text-[10px] font-bold uppercase tracking-wider px-3 py-2 hover:bg-red-700 hover:text-white transition self-start md:self-center">
+                    ⚠️ Reset Data Finansial
+                </button>
+            </div>
+
+            <!-- Ringkasan Statistik Utama -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <div class="bg-zinc-50 border border-zinc-200 p-5">
+                    <p class="text-zinc-400 uppercase tracking-widest text-[9px] font-bold">Total Pendapatan Aktual</p>
+                    <p class="text-xl font-black text-zinc-950 mt-1" id="db-gross-sales">Rp 0</p>
+                </div>
+                <div class="bg-zinc-50 border border-zinc-200 p-5">
+                    <p class="text-zinc-400 uppercase tracking-widest text-[9px] font-bold">Volume Produk Terjual</p>
+                    <p class="text-xl font-black text-zinc-950 mt-1" id="db-items-sold">0 Artikel</p>
+                </div>
+                <div class="bg-zinc-50 border border-zinc-200 p-5">
+                    <p class="text-zinc-400 uppercase tracking-widest text-[9px] font-bold">Jumlah Transaksi Masuk</p>
+                    <p class="text-xl font-black text-zinc-950 mt-1" id="db-tx-count">0 Transaksi</p>
+                </div>
+                <div class="bg-zinc-50 border border-zinc-200 p-5">
+                    <p class="text-zinc-400 uppercase tracking-widest text-[9px] font-bold">Total Jenis Produk</p>
+                    <p class="text-xl font-black text-zinc-950 mt-1" id="db-total-sku">0 SKU</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Input Kontrol Produk Baru -->
+                <div class="bg-zinc-50 border border-zinc-200 p-6">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-zinc-950 mb-4">Tambah Manifes Produk Baru</h4>
+                    <form id="add-product-form" class="space-y-3 text-xs" onsubmit="handleProductSubmit(event)">
+                        <input type="text" id="form-name" placeholder="Nama Artikel Produk" class="w-full p-2.5 border border-zinc-300 bg-white focus:outline-none focus:border-zinc-950" required>
+                        <input type="number" id="form-price" placeholder="Harga Jual (Rupiah)" class="w-full p-2.5 border border-zinc-300 bg-white focus:outline-none focus:border-zinc-950" required>
+                        <select id="form-category" class="w-full p-2.5 border border-zinc-300 bg-white focus:outline-none focus:border-zinc-950">
+                            <option value="Baju">Kategori: Atasan / Baju</option>
+                            <option value="Celana">Kategori: Bawahan / Celana</option>
+                        </select>
+                        <input type="number" id="form-stock" placeholder="Jumlah Alokasi Stok Awal" class="w-full p-2.5 border border-zinc-300 bg-white focus:outline-none focus:border-zinc-950" required>
+                        <input type="text" id="form-img" placeholder="URL Link Gambar Contoh" class="w-full p-2.5 border border-zinc-300 bg-white focus:outline-none focus:border-zinc-950" value="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80">
+                        <button type="submit" class="w-full bg-zinc-950 text-white font-bold uppercase py-3 tracking-widest hover:bg-amber-600 transition">Injeksi Produk Ke Toko</button>
+                    </form>
+                </div>
+
+                <!-- Grafik Keuangan Real-Time -->
+                <div class="bg-zinc-50 border border-zinc-200 p-6 lg:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Grafik Laju Omzet Penjualan</h4>
+                        <div class="h-48 relative"><canvas id="salesChart"></canvas></div>
+                    </div>
+                    <!-- Tabel Log Transaksi Terakhir -->
+                    <div class="mt-4">
+                        <h5 class="text-[10px] font-black uppercase text-zinc-400 tracking-wider mb-2">Riwayat Transaksi Masuk (Live Ledger)</h5>
+                        <div class="max-h-24 overflow-y-auto border border-zinc-200 text-[11px] bg-white divide-y divide-zinc-100" id="db-tx-ledger">
+                            <p class="p-2 text-zinc-400 text-center">Belum ada aktivitas transaksi terdata hari ini.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARROUT SLIDEOUT DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCartDrawer(false)"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-zinc-200 flex justify-between items-center">
+                    <h3 class="text-xs font-black uppercase tracking-widest">Keranjang Belanja</h3>
+                    <button onclick="toggleCartDrawer(false)" class="text-zinc-400 hover:text-black font-bold text-2xl">&times;</button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6 space-y-4 hide-scrollbar" id="cart-items-list"></div>
+
+                <div class="p-6 border-t border-zinc-200 bg-zinc-50 space-y-3">
+                    <div class="flex gap-2">
+                        <input type="text" id="voucher-input" placeholder="KODE VOUCHER (MEMBERBARU / KASIRPENI)" class="w-full p-2 border border-zinc-300 text-xs font-bold bg-white focus:outline-none">
+                        <button onclick="applyVoucher()" class="bg-zinc-950 text-white px-4 text-xs font-bold uppercase tracking-widest hover:bg-amber-600 transition">Klaim</button>
+                    </div>
+                    <select id="shipping-select" onchange="updateCartUI()" class="w-full p-2 border border-zinc-300 text-xs bg-white focus:outline-none">
+                        <option value="0">Kurir Regular — Gratis Promo</option>
+                        <option value="25000">Gojek/Grab Instant (Area Bandung) — Rp 25.000</option>
+                    </select>
+                </div>
+
+                <div class="p-6 border-t border-zinc-200 bg-zinc-100 text-xs font-bold space-y-2">
+                    <div class="flex justify-between text-zinc-500"><span>Diskon Potongan:</span><span id="cart-discount-price" class="text-red-600">- Rp 0</span></div>
+                    <div class="flex justify-between text-zinc-900 font-black text-sm"><span>Total Akhir:</span><span id="cart-total-price">Rp 0</span></div>
+                    <button onclick="checkoutViaWhatsApp()" class="w-full bg-zinc-950 hover:bg-amber-600 text-white font-bold py-3.5 text-center tracking-widest uppercase transition">Kirim Nota Pesanan Ke WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANTHROPOMETRIC SIZE ENGINE MODAL -->
+    <div id="size-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSizeModal(false)"></div>
+        <div class="bg-white max-w-sm w-full p-6 relative z-10 border border-zinc-200">
+            <button onclick="toggleSizeModal(false)" class="absolute top-4 right-4 text-zinc-400 hover:text-black font-bold text-xl">&times;</button>
+            <h3 class="text-xs font-black tracking-widest uppercase mb-1">Anthropometric Size Advisor</h3>
+            <p class="text-[10px] text-zinc-400 mb-4">Rekomendasi ukuran berbasis kalkulasi kecocokan anatomi tubuh.</p>
+            <div class="space-y-3">
+                <input type="number" id="size-height" placeholder="Tinggi Badan (cm)" class="w-full p-2.5 border border-zinc-300 text-xs focus:outline-none">
+                <input type="number" id="size-weight" placeholder="Berat Badan (kg)" class="w-full p-2.5 border border-zinc-300 text-xs focus:outline-none">
+                <button onclick="calculateAdvancedSize()" class="w-full bg-black text-white text-xs font-bold py-2.5 uppercase tracking-widest hover:bg-amber-600 transition">Analisis Ukuran Ideal</button>
+                <div id="size-result" class="hidden p-4 bg-zinc-100 text-left space-y-1">
+                    <p id="size-lbl-main" class="font-black text-xs text-amber-600 uppercase tracking-wide"></p>
+                    <p id="size-lbl-desc" class="text-[10px] text-zinc-500 font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT SYSTEM ARCHITECTURE -->
+    <script>
+        // CORE REACTIVE STATE MODEL
+        let productsDatabase = [
+            { id: 1, name: "Oversized Hoodie Black", price: 349000, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80", category: "Baju", stock: 12 },
+            { id: 2, name: "Streetwear Tee White", price: 179000, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80", category: "Baju", stock: 20 },
+            { id: 3, name: "Urban Cargo Pants", price: 299000, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=500&q=80", category: "Celana", stock: 8 },
+            { id: 4, name: "Relaxed Denim Blue", price: 389000, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80", category: "Celana", stock: 5 }
+        ];
+
+        let cart = [];
+        let voucherType = "FIXED"; // FIXED atau PERCENT
+        let voucherValue = 0;
+        let activeVoucherCode = "";
+        
+        let accounting = { grossSales: 0, itemsSold: 0, transactionsCount: 0 };
+        let salesChart;
+
+        function showToast(msg) {
+            const el = document.getElementById('toast-notification');
+            el.innerText = msg; el.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => el.classList.add('translate-y-20', 'opacity-0'), 2500);
+        }
+
+        function syncEcosystem() {
+            filterCatalogState();
+            renderStudioSelectors();
+            updateCartUI();
+            updateAdminDashboardUI();
+        }
+
+        // REAL-TIME SEARCH & FILTER ENGINE
+        function filterCatalogState() {
+            const query = document.getElementById('catalog-search').value.toLowerCase();
+            const categoryFilter = document.getElementById('catalog-category-filter').value;
+            
+            const filtered = productsDatabase.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(query);
+                const matchesCategory = (categoryFilter === "ALL" || p.category === categoryFilter);
+                return matchesSearch && matchesCategory;
+            });
+
+            const container = document.getElementById('product-container');
+            if(!filtered.length) {
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-zinc-400 text-xs font-medium">Tidak ada artikel yang cocok dengan filter pencarian.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => {
+                const isOutOfStock = p.stock <= 0;
+                return `
+                    <div class="border border-zinc-200 bg-white p-4 flex flex-col justify-between">
+                        <div class="w-full h-64 bg-zinc-100 overflow-hidden relative ${isOutOfStock ? 'opacity-50' : ''}">
+                            <img src="${p.img}" class="w-full h-full object-cover">
+                            <span class="absolute top-2 left-2 bg-black text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5">
+                                ${isOutOfStock ? 'HABIS' : `STOK: ${p.stock}`}
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <span class="text-[9px] font-bold text-amber-600 uppercase tracking-wider">${p.category}</span>
+                            <h4 class="font-bold text-xs uppercase tracking-wider mt-0.5">${p.name}</h4>
+                            <p class="text-xs font-semibold text-zinc-500 mt-0.5">Rp ${p.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <button onclick="handleAddToCart(${p.id})" ${isOutOfStock ? 'disabled' : ''} class="w-full mt-3 py-2 text-xs font-bold uppercase tracking-widest transition ${isOutOfStock ? 'bg-zinc-300 text-zinc-500 cursor-not-allowed' : 'bg-zinc-950 text-white hover:bg-amber-600'}">
+                            ${isOutOfStock ? 'STOK OUT' : '+ Ambil'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStudioSelectors() {
+            const tops = productsDatabase.filter(p => p.category === "Baju" && p.stock > 0);
+            const bottoms = productsDatabase.filter(p => p.category === "Celana" && p.stock > 0);
+
+            const mapper = (item, type) => `
+                <div onclick="selectStudioItem('${type}', '${item.name}', ${item.price}, '${item.img}')" class="border border-zinc-800 p-2.5 bg-zinc-900/40 cursor-pointer hover:border-white transition flex items-center gap-2">
+                    <img src="${item.img}" class="w-8 h-8 object-cover">
+                    <p class="text-[11px] font-bold uppercase truncate tracking-wider">${item.name}</p>
+                </div>
+            `;
+
+            document.getElementById('studio-tops-container').innerHTML = tops.map(t => mapper(t, 'top')).join('');
+            document.getElementById('studio-bottoms-container').innerHTML = bottoms.map(b => mapper(b, 'bottom')).join('');
+
+            if(tops.length && !document.getElementById('studio-top-img').src) selectStudioItem('top', tops[0].name, tops[0].price, tops[0].img);
+            if(bottoms.length && !document.getElementById('studio-bottom-img').src) selectStudioItem('bottom', bottoms[0].name, bottoms[0].price, bottoms[0].img);
+        }
+
+        let selectedStudioTop = null;
+        let selectedStudioBottom = null;
+
+        function selectStudioItem(type, name, price, img) {
+            if(type === 'top') { selectedStudioTop = { name, price, img }; document.getElementById('studio-top-img').src = img; }
+            else { selectedStudioBottom = { name, price, img }; document.getElementById('studio-bottom-img').src = img; }
+        }
+
+        function addComboToCart() {
+            if(!selectedStudioTop || !selectedStudioBottom) return;
+            const itemTop = productsDatabase.find(p => p.name === selectedStudioTop.name);
+            const itemBottom = productsDatabase.find(p => p.name === selectedStudioBottom.name);
+            
+            if(itemTop.stock > 0 && itemBottom.stock > 0) {
+                executeAddToCart(itemTop); executeAddToCart(itemBottom);
+                toggleCartDrawer(true);
+                showToast("1 Set Kombinasi Ditambahkan!");
+            }
+        }
+
+        function handleAddToCart(id) {
+            const targetProd = productsDatabase.find(p => p.id === id);
+            if(targetProd && targetProd.stock > 0) { executeAddToCart(targetProd); toggleCartDrawer(true); }
+        }
+
+        function executeAddToCart(product) {
+            const match = cart.find(i => i.productId === product.id);
+            if(match) {
+                if(match.quantity < product.stock) match.quantity++;
+                else showToast(`Gagal: Batas limit stok ${product.name} tercapai.`);
+            } else {
+                cart.push({ productId: product.id, name: product.name, price: product.price, img: product.img, quantity: 1 });
+            }
+            syncEcosystem();
+        }
+
+        function changeCartQty(index, delta) {
+            const cartItem = cart[index];
+            const originalProduct = productsDatabase.find(p => p.id === cartItem.productId);
+            
+            if(delta > 0 && cartItem.quantity >= originalProduct.stock) { showToast("Maksimal alokasi stok produk."); return; }
+            cartItem.quantity += delta;
+            if(cartItem.quantity <= 0) cart.splice(index, 1);
+            syncEcosystem();
+        }
+
+        // LOYALTY VOUCHER ENGINE
+        function applyVoucher() {
+            const code = document.getElementById('voucher-input').value.toUpperCase().trim();
+            if(code === "UNECON2026") {
+                voucherType = "FIXED"; voucherValue = 75000; activeVoucherCode = "UNECON2026";
+                showToast("Voucher Potongan Rp 75.000 Aktif!");
+            } else if(code === "MEMBERBARU") {
+                voucherType = "PERCENT"; voucherValue = 10; activeVoucherCode = "MEMBERBARU";
+                showToast("Voucher Loyalty 10% Aktif!");
+            } else if(code === "KASIRPENI") {
+                voucherType = "FIXED"; voucherValue = 100000; activeVoucherCode = "KASIRPENI";
+                showToast("Special Voucher Cashier Rp 100.000 Terpasang!");
+            } else {
+                voucherType = "FIXED"; voucherValue = 0; activeVoucherCode = "";
+                showToast("Kode Voucher Tidak Valid.");
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.reduce((sum, i) => sum + i.quantity, 0);
+            const list = document.getElementById('cart-items-list');
+            
+            if(!cart.length) {
+                list.innerHTML = `<p class="text-zinc-400 text-xs text-center py-10">Keranjang masih kosong.</p>`;
+            } else {
+                list.innerHTML = cart.map((item, index) => `
+                    <div class="flex items-center justify-between border-b border-zinc-100 pb-3">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.img}" class="w-10 h-12 object-cover">
+                            <div>
+                                <h5 class="text-[11px] font-bold uppercase">${item.name}</h5>
+                                <p class="text-[10px] text-zinc-400">Rp ${item.price.toLocaleString('id-ID')}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 border border-zinc-200 px-2 py-0.5">
+                            <button onclick="changeCartQty(${index}, -1)" class="text-xs font-bold text-zinc-400">-</button>
+                            <span class="text-xs font-bold px-1">${item.quantity}</span>
+                            <button onclick="changeCartQty(${index}, 1)" class="text-xs font-bold text-zinc-400">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const baseTotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const shipping = parseInt(document.getElementById('shipping-select').value) || 0;
+            
+            let calculatedDiscount = 0;
+            if(voucherType === "PERCENT") {
+                calculatedDiscount = (baseTotal * voucherValue) / 100;
+            } else {
+                calculatedDiscount = voucherValue;
+            }
+
+            const grandTotal = Math.max(0, (baseTotal + shipping) - calculatedDiscount);
+
+            document.getElementById('cart-discount-price').innerText = `- Rp ${calculatedDiscount.toLocaleString('id-ID')}`;
+            document.getElementById('cart-total-price').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+        }
+
+        // ANTHROPOMETRIC FIT CALCULATOR
+        function calculateAdvancedSize() {
+            const h = parseFloat(document.getElementById('size-height').value) / 100; // meter
+            const w = parseFloat(document.getElementById('size-weight').value);
+            if(!h || !w) return;
+
+            const bmi = w / (h * h);
+            let size = "M";
+            let fitDescription = "Profil tubuh proporsional. Direkomendasikan Regular-Fit.";
+
+            if(bmi >= 25 || w > 75) {
+                size = "XL"; fitDescription = "Profil tubuh bervolume lebar. Direkomendasikan Loose-Oversized Fit.";
+            } else if (bmi >= 23 || w > 67) {
+                size = "L"; fitDescription = "Profil tubuh sedang-padat. Siluet jatuh pakaian akan terlihat tegap.";
+            } else if (bmi < 18.5) {
+                size = "S / Slim-M"; fitDescription = "Profil tubuh ramping. Slim-cut atau draping oversized direkomendasikan.";
+            }
+
+            const box = document.getElementById('size-result');
+            document.getElementById('size-lbl-main').innerText = `Rekomendasi: SIZE ${size}`;
+            document.getElementById('size-lbl-desc').innerText = fitDescription;
+            box.classList.remove('hidden');
+        }
+
+        // ADMIN MANAGEMENT & INJECTION CONTROL
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const price = parseInt(document.getElementById('form-price').value);
+            const category = document.getElementById('form-category').value;
+            const stock = parseInt(document.getElementById('form-stock').value);
+            const img = document.getElementById('form-img').value;
+
+            const newId = productsDatabase.length + 1;
+            productsDatabase.push({ id: newId, name, price, img, category, stock });
+            
+            document.getElementById('add-product-form').reset();
+            showToast(`SKU Baru Terinjeksi: ${name}`);
+            syncEcosystem();
+        }
+
+        function updateAdminDashboardUI() {
+            document.getElementById('db-gross-sales').innerText = `Rp ${accounting.grossSales.toLocaleString('id-ID')}`;
+            document.getElementById('db-items-sold').innerText = `${accounting.itemsSold} Artikel`;
+            document.getElementById('db-tx-count').innerText = `${accounting.transactionsCount} Terdata`;
+            document.getElementById('db-total-sku').innerText = `${productsDatabase.length} SKU`;
+        }
+
+        function resetDashboardLedger() {
+            if(confirm("Apakah Anda yakin ingin melakukan pembersihan berkas akuntansi ledger?")) {
+                accounting = { grossSales: 0, itemsSold: 0, transactionsCount: 0 };
+                document.getElementById('db-tx-ledger').innerHTML = `<p class="p-2 text-zinc-400 text-center">Belum ada aktivitas transaksi terdata hari ini.</p>`;
+                salesChart.data.datasets[0].data[6] = 0;
+                salesChart.update();
+                syncEcosystem();
+                showToast("Ledger finansial berhasil di-reset.");
+            }
+        }
+
+        function checkoutViaWhatsApp() {
+            if(!cart.length) return alert("Keranjang kosong!");
+            
+            let verifyStock = true;
+            cart.forEach(item => {
+                const orig = productsDatabase.find(p => p.id === item.productId);
+                if(orig.stock < item.quantity) verifyStock = false;
+            });
+
+            if(!verifyStock) { alert("Gagal memproses order. Stok barang tidak mencukupi."); return; }
+
+            let txAmount = 0; let txItemsCount = 0;
+            cart.forEach(item => {
+                const orig = productsDatabase.find(p => p.id === item.productId);
+                orig.stock -= item.quantity;
+                txItemsCount += item.quantity;
+                txAmount += (item.price * item.quantity);
+            });
+
+            const shipping = parseInt(document.getElementById('shipping-select').value) || 0;
+            let calculatedDiscount = (voucherType === "PERCENT") ? (txAmount * voucherValue) / 100 : voucherValue;
+            const totalBill = Math.max(0, (txAmount + shipping) - calculatedDiscount);
+
+            accounting.grossSales += totalBill;
+            accounting.itemsSold += txItemsCount;
+            accounting.transactionsCount += 1;
+
+            const ledger = document.getElementById('db-tx-ledger');
+            if(accounting.transactionsCount === 1) ledger.innerHTML = "";
+            
+            const timestamp = new Date().toLocaleTimeString('id-ID');
+            ledger.innerHTML = `<p class="p-2 border-b border-zinc-100 bg-emerald-50 text-emerald-800 font-medium">[${timestamp}] Sukses: Terjual ${txItemsCount} Pcs item senilai Rp ${totalBill.toLocaleString('id-ID')}</p>` + ledger.innerHTML;
+
+            salesChart.data.datasets[0].data[6] = accounting.grossSales;
+            salesChart.update();
+
+            let textWA = `🧾 *NOTA INVOICE UNECON APPAREL*\n\n`;
+            cart.forEach(i => { textWA += `▪️ ${i.name} (${i.quantity}x)\n`; });
+            if(activeVoucherCode) textWA += `\n🎟️ *Voucher:* ${activeVoucherCode} (-Rp ${calculatedDiscount.toLocaleString('id-ID')})`;
+            textWA += `\n💰 *Total Bayar:* Rp ${totalBill.toLocaleString('id-ID')}\n📦 Diproses langsung tim admin Anggi Sholeh.`;
+            
+            cart = []; syncEcosystem(); toggleCartDrawer(false);
+            window.open(`https://wa.me/628123456789?text=${encodeURIComponent(textWA)}`, '_blank');
+        }
+
+        function toggleCartDrawer(open) { document.getElementById('cart-drawer').classList[open ? 'remove' : 'add']('hidden'); }
+        function toggleSizeModal(open) { document.getElementById('size-modal').classList[open ? 'remove' : 'add']('hidden'); }
+
+        function initChartInstance() {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Wk 1', 'Wk 2', 'Wk 3', 'Wk 4', 'Wk 5', 'Wk 6', 'Live Tx'],
+                    datasets: [{
+                        label: 'Gross Revenue Arus Kas',
+                        data: [2500000, 4800000, 3100000, 7200000, 5100000, 8900000, 0],
+                        borderColor: '#000000', backgroundColor: 'rgba(0,0,0,0.01)',
+                        borderWidth: 2, tension: 0.2, fill: true
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        window.onload = function() { initChartInstance(); syncEcosystem(); };
+    </script>
+</body>
+</html>
